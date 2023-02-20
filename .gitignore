@@ -1,0 +1,12 @@
+*.slo
+*.lo
+*.o
+*.obj
+
+
+.vscode/
+SFML-2.5.1/
+
+*.exe
+
+src/imgui
