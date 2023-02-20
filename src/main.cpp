@@ -22,7 +22,7 @@ int main()
     sf::Time mapRenderTime;
     sf::Time playerRenderTime;
 
-    Player player = Player(sf::Vector2f(400,400), 2);
+    Player player = Player(sf::Vector2f(400,400), 10.0f);
 
  
 

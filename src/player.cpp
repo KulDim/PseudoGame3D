@@ -4,9 +4,30 @@
 #include <math.h>
 #include "player.h"
 
+void Player::eye(sf::RenderWindow &w)
+{
+
+    sf::Vertex line[] =
+    {
+        sf::Vertex
+            (sf::Vector2f(
+                playerShape.getPosition().x + radius ,
+                playerShape.getPosition().y + radius 
+            ),
+                sf::Color::Red),
+        sf::Vertex(
+            sf::Vector2f(
+                        playerShape.getPosition().x + radius + std::cos(angle) * radius, 
+                        playerShape.getPosition().y + radius + std::sin(angle) * radius
+            ),
+                sf::Color::Red)
+    };
+    w.draw(line, 2, sf::Lines);
+}
+
 void Player::move(float dt)
 {
-    if(angle < 0) angle = 3.14f*2;
+    if(angle < 0) angle = 3.14f * 2;
     if(angle > 3.14f*2) angle = 0;
 
     float x = (speed * std::cos(angle) * dt);
@@ -14,11 +35,11 @@ void Player::move(float dt)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-            angle -= 1 * dt;
+            angle -= 0.01f ;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-            angle += 1 * dt;
+            angle += 0.01f ;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
@@ -35,27 +56,8 @@ sf::Time Player::render(sf::RenderWindow &w, float dt)
 {
     clock.restart();
     move(dt);
-
-                        // center.getPosition().x + std::sin(i) * j , 
-                        // center.getPosition().y + std::cos(i) * j
-
-    sf::Vertex line[] =
-    {
-        sf::Vertex(sf::Vector2f(
-            playerShape.getPosition().x + radius,
-            playerShape.getPosition().y + radius
-        ),sf::Color::White),
-        sf::Vertex(sf::Vector2f(
-                        playerShape.getPosition().x  + std::cos(angle) * speed , 
-                        playerShape.getPosition().y  + std::sin(angle) * speed
-        ),sf::Color::White)
-    };
-
-
-    w.draw(line, 2, sf::Lines);
-
     w.draw(playerShape);
-
+    eye(w);
     t = clock.restart();
     return t;
 }
